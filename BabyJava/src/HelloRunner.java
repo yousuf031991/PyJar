@@ -1,11 +1,15 @@
+import java.io.FileInputStream;
+import java.io.InputStream;
+
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 public class HelloRunner {
 	public static void main(String[] args) throws Exception {
-
-		ANTLRInputStream input = new ANTLRInputStream(System.in);
+		InputStream is;
+		FileInputStream fis = new FileInputStream("..\\example");		
+		ANTLRInputStream input = new ANTLRInputStream(fis);
 
 		HelloLexer lexer = new HelloLexer(input);
 
