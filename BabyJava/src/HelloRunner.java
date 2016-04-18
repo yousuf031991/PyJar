@@ -1,5 +1,6 @@
-import org.antlr.v4.runtime.*;
-import org.antlr.v4.runtime.tree.*;
+import org.antlr.v4.runtime.ANTLRInputStream;
+import org.antlr.v4.runtime.CommonTokenStream;
+import org.antlr.v4.runtime.tree.ParseTree;
 
 public class HelloRunner {
 	public static void main(String[] args) throws Exception {
@@ -11,7 +12,7 @@ public class HelloRunner {
 		CommonTokenStream tokens = new CommonTokenStream(lexer);
 
 		HelloParser parser = new HelloParser(tokens);
-		double tree = parser.eval().value; // begin parsing at rule 'r'
+		ParseTree tree = parser.start(); // begin parsing at rule 'r'
 		// System.out.println(tree.toStringTree(parser)); // print LISP-style
 		// tree
 		System.out.println(tree);
