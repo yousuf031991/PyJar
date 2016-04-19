@@ -8,7 +8,7 @@ import org.antlr.v4.runtime.tree.ParseTree;
 public class HelloRunner {
 	public static void main(String[] args) throws Exception {
 		InputStream is;
-		FileInputStream fis = new FileInputStream("..\\example");		
+		FileInputStream fis = new FileInputStream(".example");		
 		ANTLRInputStream input = new ANTLRInputStream(fis);
 
 		HelloLexer lexer = new HelloLexer(input);

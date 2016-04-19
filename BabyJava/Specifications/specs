@@ -1,0 +1,11 @@
+##### Intermediate code operation definitions
+* read - gets input from user and pushes on to the stack
+* store varname - pops a value from the stack and store it in variable varname
+* push varname - pushes variable varname on to the stack
+* testfgoto line_no - pops from stack, if popped value = 0.0, sends execution to line_no
+* testtgoto line_no - pops from stack, if popped value = 1.0, sends execution to line_no
+* print - pops from stack and prints on to the console
+* minus, multiply, add, subtract - pop from the stack twice, perform the operation on the 2 popped values
+* greater, smaller, equal, greaterequal, lessequal - pop from the stack twice, perform the operation on the 2 popped values, and push the result on to the stack
+* openblock, closeblock - open and close scope ('{' and '}' in high level)
+* nop - do nothing

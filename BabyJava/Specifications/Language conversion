@@ -1,0 +1,24 @@
+#### High level language to intermediate language conversion
+read x 					-->			read
+									store x
+i = x					-->			push x
+									store i
+fact = 1				-->			push   1.0
+									store fact
+while (i > 1){			-->			push i
+									push   1.0
+									greater
+									testfgoto 20
+   fact = fact * i		-->			push fact
+									push i
+									multiply
+									store fact									
+   i = i - 1			-->			push i
+									push   1.0
+									minus
+									store i
+}						-->			push 1.0
+									testtgoto 6
+print fact				-->			push fact
+									print
+									end
