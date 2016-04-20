@@ -18,7 +18,7 @@ while (i > 1){			-->			PUSH i
 									PUSH   1.0
 									SUBTRACT
 									STORE i
-}						-->			PUSH 1.0
+}						-->			PUSH True
 									TESTTGOTO 6
 									CLOSEBLOCK
 print fact				-->			PUSH fact

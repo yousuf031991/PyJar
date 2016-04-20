@@ -2,10 +2,14 @@
 READ - gets input from user and pushes on to the stack
 STORE varname - pops a value from the stack and store it in variable varname
 PUSH varname - pushes variable varname on to the stack
-TESTFGOTO line_no - pops from stack, if popped value = 0.0, sends execution to line_no
-TESTTGOTO line_no - pops from stack, if popped value = 1.0, sends execution to line_no
+TESTFGOTO line_no - pops from stack, if popped value is False, sends execution to line_no
+TESTTGOTO line_no - pops from stack, if popped value is True, sends execution to line_no
 PRINT - pops from stack and prints on to the console
 DIVIDE, MULTIPLY, ADD, SUBTRACT - pop from the stack twice, perform the operation on the 2 popped values
-GREATER, LESSER, EQUAL, GREATEREQUAL, LESSEREQUAL - pop from the stack twice, perform the operation on the 2 popped values, and push the result on to the stack
+GREATER, LESSER, EQUAL, GREATEREQUAL, LESSEREQUAL - pop from the stack twice, perform the operation on
+	the 2 popped values, and push the result (True or False) on to the stack
 OPENBLOCK, CLOSEBLOCK - Open and close a new block ('{' and '}' in Java)
 NOP - do nothing
+RET - returns the element at the top of the stack
+CALL funcname - Calls the function funcname; pops the number of parameters that funcname's signature
+	has from the stack 
