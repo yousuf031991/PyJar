@@ -1,5 +1,4 @@
-/**
-John wrote this. Except where noted.
+/*
 Developed with a ton of help from The Definitive ANTLR 4 Reference.
 */
 
@@ -28,17 +27,17 @@ jump : 'if' '(' (booleanOperation | compare) ')' '{' context '}' 'else' '{' cont
 
 
 /**Loop*/
-whileLoop : 'while' (IDENT | booleanOperation | compare) '{' context '}' ;
+whileLoop : 'WHILE' (IDENT | booleanOperation | compare) '{' context '}' ;
 
 
 /**Assignment*/
 assignment : intAssignment | strAssignment | boolAssignment ;
 
-intAssignment : 'integer' IDENT '=' (INT | intOperation | intCall)+ ;
+intAssignment : IDENT '=' (INT | intOperation | intCall)+ ;
 
-strAssignment : 'string' IDENT '=' (STR | stringOperation)+ ;
+strAssignment : IDENT '=' (STR | stringOperation)+ ;
 
-boolAssignment : 'boolean' IDENT '=' (BOOL | booleanOperation | boolCall)+ ;
+boolAssignment : IDENT '=' (BOOL | booleanOperation | boolCall)+ ;
 
 
 /**Operations*/

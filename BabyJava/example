@@ -1,8 +1,10 @@
-integer
-i=x
-while(i>1)
-{
-	fact=fact*i;
-	i=i-1;			
+x=getInt()
+i=1
+fact=1
+
+WHILE x>i{
+fact=fact*x
+x=x-i
 }
-print fact
+
+print(fact)
