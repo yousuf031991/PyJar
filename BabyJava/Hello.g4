@@ -43,39 +43,39 @@ boolAssignment : IDENT '=' (BOOL | booleanOperation | boolCall)+ ;
 /**Operations*/
 operation : intOperation | stringOperation | booleanOperation ;
 
-intOperation : IDENT intOp IDENT ;
+intOperation : IDENT INTOP IDENT ;
 
-stringOperation : IDENT strOp IDENT ;
+stringOperation : IDENT STROP IDENT ;
 
-booleanOperation : IDENT boolOp IDENT ;
+booleanOperation : IDENT BOOLOP IDENT ;
 
 
 /**Comparison functions*/
 compare : integerCompare | stringCompare ;
 
-integerCompare : IDENT intComp IDENT ;
+integerCompare : IDENT INTCOMP IDENT ;
 
-stringCompare : IDENT strComp IDENT ;
+stringCompare : IDENT STRCOMP IDENT ;
 
 
 /**Operators*/
 
 //integer operators
-intOp : '+' | '-' | '*' | '/' | '%' ; 
+INTOP : '+' | '-' | '*' | '/' | '%' ; 
 
 //string operators
-strOp : 'concat' ;//**What do we need here?*
+STROP : 'concat' ;//**What do we need here?*
 
 //boolean operators
-boolOp : 'and' | 'or' | 'xOr' ;
+BOOLOP : 'and' | 'or' | 'xOr' ;
 
 /**Comparators*/
 
 //integer comparators
-intComp : '>' | '<' | '==' ;
+INTCOMP : '>' | '<' | '==' ;
 
 //string comparators
-strComp : 'isequals' ;
+STRCOMP : 'isequal' ;
 
 /**Types*/
 	
