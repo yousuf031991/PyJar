@@ -1,10 +1,18 @@
+
 x=getInt()
 i=1
 fact=1
 
-WHILE x>i{
+while (x>i){
 fact=fact*x
 x=x-i
 }
 
+if (x>i){
+x=6
+}
+else
+{
+c=8
+}
 print(fact)

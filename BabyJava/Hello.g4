@@ -1,3 +1,5 @@
+
+
 /*
 Developed with a ton of help from The Definitive ANTLR 4 Reference.
 */
@@ -23,21 +25,21 @@ boolCall : 'getBool()' ;
 
 
 /**Jump*/
-jump : 'if' '(' (booleanOperation | compare) ')' '{' context '}' 'else' '{' context '}';
+jump : 'if ' '(' (booleanOperation | compare) ')' '{' context '}' 'else' '{' context '}';
 
 
 /**Loop*/
-whileLoop : 'WHILE' (IDENT | booleanOperation | compare) '{' context '}' ;
+whileLoop : 'while ' '(' (IDENT | booleanOperation | integerCompare | stringCompare) ')' '{' context '}' ;
 
 
 /**Assignment*/
 assignment : intAssignment | strAssignment | boolAssignment ;
 
-intAssignment : IDENT '=' (INT | intOperation | intCall)+ ;
+intAssignment : ('integer ')* IDENT '=' (INT | intOperation | intCall)+ ;
 
-strAssignment : IDENT '=' (STR | stringOperation)+ ;
+strAssignment : ('string ')* IDENT '=' (STR | stringOperation)+ ;
 
-boolAssignment : IDENT '=' (BOOL | booleanOperation | boolCall)+ ;
+boolAssignment : ('boolean ')* IDENT '=' (BOOL | booleanOperation | boolCall)+ ;
 
 
 /**Operations*/
@@ -57,14 +59,13 @@ integerCompare : IDENT INTCOMP IDENT ;
 
 stringCompare : IDENT STRCOMP IDENT ;
 
-
 /**Operators*/
 
 //integer operators
 INTOP : '+' | '-' | '*' | '/' | '%' ; 
 
 //string operators
-STROP : 'concat' ;//**What do we need here?*
+STROP : 'concat' ;
 
 //boolean operators
 BOOLOP : 'and' | 'or' | 'xOr' ;
@@ -89,7 +90,10 @@ INT : [ 0-9]+ ;
 STR : '"' [ a-zA-Z0-9]+ '"' ;
 
 //boolean
-BOOL : ['true' | 'false']* ;
+//BOOL : ['true' | 'false']* ;
+
+
+BOOL : [ TRUE | FALSE ] ;
 
 /**Whitespace and comments - These are from chapter 5 of The Definitive ANTLR 4 Reference*/
 
@@ -106,8 +110,4 @@ expressionList : expression (',' expression)* ; //an expression followed by zero
 
 COMMENT : '//' ~( '\r' | '\n' )* -> skip 
 ;
-
-
-
-
 

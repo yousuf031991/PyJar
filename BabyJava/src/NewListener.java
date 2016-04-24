@@ -1,40 +1,135 @@
-// Generated from Hello.g4 by ANTLR 4.4
-import org.antlr.v4.runtime.misc.NotNull;
-import org.antlr.v4.runtime.tree.ParseTreeListener;
+
+
+// Generated from Hello.g4 by ANTLR 4.5.3
+
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
 /**
- * This interface defines a complete listener for a parse tree produced by
- * {@link HelloParser}.
+ * This class provides an empty implementation of {@link HelloListener},
+ * which can be extended to create a listener which only needs to handle a subset
+ * of the available methods.
  */
-@SuppressWarnings("deprecation")
-public interface NewListener extends ParseTreeListener {
+public class NewListener extends HelloBaseListener {
 	/**
-	 * Enter a parse tree produced by {@link HelloParser#boolAssignment}.
-	 * @param ctx the parse tree
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
 	 */
-	void enterBoolAssignment(@NotNull HelloParser.BoolAssignmentContext ctx);
-	{
-		if (ctx.BOOL() != null) {
-			System.out.println("PUSH " + ctx.BOOL());
-		}
+	@Override public void enterStart(HelloParser.StartContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStart(HelloParser.StartContext ctx) { 
+
+		System.out.println("END");
 	}
 	/**
-	 * Exit a parse tree produced by {@link HelloParser#boolAssignment}.
-	 * @param ctx the parse tree
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
 	 */
-	void exitBoolAssignment(@NotNull HelloParser.BoolAssignmentContext ctx);
-	{
-		System.out.println("STORE " + ctx.IDENT());
+	@Override public void enterContext(HelloParser.ContextContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitContext(HelloParser.ContextContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterCall(HelloParser.CallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitCall(HelloParser.CallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterVoidcall(HelloParser.VoidcallContext ctx) { 
+
+		System.out.println("PUSH " + ctx.IDENT());
+		System.out.println("PRINT");
 	}
 	/**
-	 * Enter a parse tree produced by {@link HelloParser#whileLoop}.
-	 * @param ctx the parse tree
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
 	 */
-	void enterWhileLoop(@NotNull HelloParser.WhileLoopContext ctx);
-	{
+	@Override public void exitVoidcall(HelloParser.VoidcallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIntCall(HelloParser.IntCallContext ctx) {
+
+		System.out.println("READ INT");
+	}
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIntCall(HelloParser.IntCallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStrCall(HelloParser.StrCallContext ctx) {
+
+		System.out.println("READ STRING");
+	}
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStrCall(HelloParser.StrCallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBoolCall(HelloParser.BoolCallContext ctx) {
+
+		System.out.println("READ BOOLEAN");
+	}
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBoolCall(HelloParser.BoolCallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterJump(HelloParser.JumpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitJump(HelloParser.JumpContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterWhileLoop(HelloParser.WhileLoopContext ctx) {
 		if (ctx.integerCompare() != null) 
 		{
 			System.out.println("PUSH " + ctx.integerCompare().IDENT(0));
@@ -49,11 +144,11 @@ public interface NewListener extends ParseTreeListener {
 		System.out.println("testfgoto 22");
 	}
 	/**
-	 * Exit a parse tree produced by {@link HelloParser#whileLoop}.
-	 * @param ctx the parse tree
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
 	 */
-	void exitWhileLoop(@NotNull HelloParser.WhileLoopContext ctx);
-	{
+	@Override public void exitWhileLoop(HelloParser.WhileLoopContext ctx) {
 		if (ctx.integerCompare() != null) 
 		{
 			System.out.println("push " + ctx.integerCompare().IDENT(0));
@@ -68,134 +163,104 @@ public interface NewListener extends ParseTreeListener {
 		System.out.println("testtgoto 10");
 	}
 	/**
-	 * Enter a parse tree produced by {@link HelloParser#compare}.
-	 * @param ctx the parse tree
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
 	 */
-	void enterCompare(@NotNull HelloParser.CompareContext ctx);
+	@Override public void enterAssignment(HelloParser.AssignmentContext ctx) { }
 	/**
-	 * Exit a parse tree produced by {@link HelloParser#compare}.
-	 * @param ctx the parse tree
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
 	 */
-	void exitCompare(@NotNull HelloParser.CompareContext ctx);
+	@Override public void exitAssignment(HelloParser.AssignmentContext ctx) { }
 	/**
-	 * Enter a parse tree produced by {@link HelloParser#assignment}.
-	 * @param ctx the parse tree
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
 	 */
-	void enterAssignment(@NotNull HelloParser.AssignmentContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link HelloParser#assignment}.
-	 * @param ctx the parse tree
-	 */
-	void exitAssignment(@NotNull HelloParser.AssignmentContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link HelloParser#stringCompare}.
-	 * @param ctx the parse tree
-	 */
-	void enterStringCompare(@NotNull HelloParser.StringCompareContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link HelloParser#stringCompare}.
-	 * @param ctx the parse tree
-	 */
-	void exitStringCompare(@NotNull HelloParser.StringCompareContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link HelloParser#start}.
-	 * @param ctx the parse tree
-	 */
-	void enterStart(@NotNull HelloParser.StartContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link HelloParser#start}.
-	 * @param ctx the parse tree
-	 */
-	void exitStart(@NotNull HelloParser.StartContext ctx);
-	{
-		System.out.println("END");
-	}
-	/**
-	 * Enter a parse tree produced by {@link HelloParser#voidcall}.
-	 * @param ctx the parse tree
-	 */
-	void enterVoidcall(@NotNull HelloParser.VoidcallContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link HelloParser#voidcall}.
-	 * @param ctx the parse tree
-	 */
-	void exitVoidcall(@NotNull HelloParser.VoidcallContext ctx);
-	{
-		System.out.println("PUSH " + ctx.IDENT());
-		System.out.println("PRINT");
-	}
-	/**
-	 * Enter a parse tree produced by {@link HelloParser#intCall}.
-	 * @param ctx the parse tree
-	 */
-	void enterIntCall(@NotNull HelloParser.IntCallContext ctx);
-	{
-		System.out.println("READ STRING");
-	}
-	/**
-	 * Exit a parse tree produced by {@link HelloParser#intCall}.
-	 * @param ctx the parse tree
-	 */
-	void exitIntCall(@NotNull HelloParser.IntCallContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link HelloParser#strCall}.
-	 * @param ctx the parse tree
-	 */
-	void enterStrCall(@NotNull HelloParser.StrCallContext ctx);
-	{
-		System.out.println("READ STRING");
-	}
-	/**
-	 * Exit a parse tree produced by {@link HelloParser#strCall}.
-	 * @param ctx the parse tree
-	 */
-	void exitStrCall(@NotNull HelloParser.StrCallContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link HelloParser#boolCall}.
-	 * @param ctx the parse tree
-	 */
-	void enterBoolCall(@NotNull HelloParser.BoolCallContext ctx);
-	{
-		System.out.println("READ BOOLEAN");
-	}
-	/**
-	 * Exit a parse tree produced by {@link HelloParser#boolCall}.
-	 * @param ctx the parse tree
-	 */
-	void exitBoolCall(@NotNull HelloParser.BoolCallContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link HelloParser#intAssignment}.
-	 * @param ctx the parse tree
-	 */
-	void enterIntAssignment(@NotNull HelloParser.IntAssignmentContext ctx);
-	{
+	@Override public void enterIntAssignment(HelloParser.IntAssignmentContext ctx) {
+
 		if (ctx.INT() != null) {
 			System.out.println("PUSH " + ctx.INT());
 		}
 	}
 	/**
-	 * Exit a parse tree produced by {@link HelloParser#intAssignment}.
-	 * @param ctx the parse tree
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
 	 */
-	void exitIntAssignment(@NotNull HelloParser.IntAssignmentContext ctx);
-	{
+	@Override public void exitIntAssignment(HelloParser.IntAssignmentContext ctx) {
+
 		System.out.println("STORE " + ctx.IDENT());
 	}
 	/**
-	 * Enter a parse tree produced by {@link HelloParser#intOperation}.
-	 * @param ctx the parse tree
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
 	 */
-	void enterIntOperation(@NotNull HelloParser.IntOperationContext ctx);
-	{
-		System.out.println("PUSH " + ctx.IDEN(0));
-		System.out.println("PUSH " + ctx.IDEN(1));
+	@Override public void enterStrAssignment(HelloParser.StrAssignmentContext ctx) { 
+
+		if (ctx.STR() != null) {
+			System.out.println("PUSH " + ctx.STR());
+		}
 	}
 	/**
-	 * Exit a parse tree produced by {@link HelloParser#intOperation}.
-	 * @param ctx the parse tree
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
 	 */
-	void exitIntOperation(@NotNull HelloParser.IntOperationContext ctx);
-	{
+	@Override public void exitStrAssignment(HelloParser.StrAssignmentContext ctx) {
+
+		System.out.println("STORE " + ctx.IDENT());
+	}
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterBoolAssignment(HelloParser.BoolAssignmentContext ctx) { 
+		if (ctx.BOOL() != null) {
+			System.out.println("PUSH " + ctx.BOOL());
+		}
+	}
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitBoolAssignment(HelloParser.BoolAssignmentContext ctx) { 
+
+		System.out.println("STORE " + ctx.IDENT());
+	}
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterOperation(HelloParser.OperationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitOperation(HelloParser.OperationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIntOperation(HelloParser.IntOperationContext ctx) { 
+
+		System.out.println("PUSH " + ctx.IDENT(0));
+		System.out.println("PUSH " + ctx.IDENT(1));
+	}
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIntOperation(HelloParser.IntOperationContext ctx) {
 		switch (ctx.INTOP().toString()) {
 		case "*":
 			System.out.println("MULTIPLY");
@@ -211,91 +276,89 @@ public interface NewListener extends ParseTreeListener {
 	}
 	}
 	/**
-	 * Enter a parse tree produced by {@link HelloParser#call}.
-	 * @param ctx the parse tree
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
 	 */
-	void enterCall(@NotNull HelloParser.CallContext ctx);
+	@Override public void enterStringOperation(HelloParser.StringOperationContext ctx) { }
 	/**
-	 * Exit a parse tree produced by {@link HelloParser#call}.
-	 * @param ctx the parse tree
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
 	 */
-	void exitCall(@NotNull HelloParser.CallContext ctx);
+	@Override public void exitStringOperation(HelloParser.StringOperationContext ctx) { }
 	/**
-	 * Enter a parse tree produced by {@link HelloParser#strAssignment}.
-	 * @param ctx the parse tree
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
 	 */
-	void enterStrAssignment(@NotNull HelloParser.StrAssignmentContext ctx);
-	{
-		if (ctx.STR() != null) {
-			System.out.println("PUSH " + ctx.STR());
-		}
-	}
+	@Override public void enterBooleanOperation(HelloParser.BooleanOperationContext ctx) { }
 	/**
-	 * Exit a parse tree produced by {@link HelloParser#strAssignment}.
-	 * @param ctx the parse tree
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
 	 */
-	void exitStrAssignment(@NotNull HelloParser.StrAssignmentContext ctx);
-	{
-		System.out.println("STORE " + ctx.IDENT());
-	}
+	@Override public void exitBooleanOperation(HelloParser.BooleanOperationContext ctx) { }
 	/**
-	 * Enter a parse tree produced by {@link HelloParser#stringOperation}.
-	 * @param ctx the parse tree
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
 	 */
-	void enterStringOperation(@NotNull HelloParser.StringOperationContext ctx);
+	@Override public void enterCompare(HelloParser.CompareContext ctx) { }
 	/**
-	 * Exit a parse tree produced by {@link HelloParser#stringOperation}.
-	 * @param ctx the parse tree
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
 	 */
-	void exitStringOperation(@NotNull HelloParser.StringOperationContext ctx);
+	@Override public void exitCompare(HelloParser.CompareContext ctx) { }
 	/**
-	 * Enter a parse tree produced by {@link HelloParser#integerCompare}.
-	 * @param ctx the parse tree
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
 	 */
-	void enterIntegerCompare(@NotNull HelloParser.IntegerCompareContext ctx);
+	@Override public void enterIntegerCompare(HelloParser.IntegerCompareContext ctx) { }
 	/**
-	 * Exit a parse tree produced by {@link HelloParser#integerCompare}.
-	 * @param ctx the parse tree
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
 	 */
-	void exitIntegerCompare(@NotNull HelloParser.IntegerCompareContext ctx);
+	@Override public void exitIntegerCompare(HelloParser.IntegerCompareContext ctx) { }
 	/**
-	 * Enter a parse tree produced by {@link HelloParser#context}.
-	 * @param ctx the parse tree
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
 	 */
-	void enterContext(@NotNull HelloParser.ContextContext ctx);
+	@Override public void enterStringCompare(HelloParser.StringCompareContext ctx) { }
 	/**
-	 * Exit a parse tree produced by {@link HelloParser#context}.
-	 * @param ctx the parse tree
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
 	 */
-	void exitContext(@NotNull HelloParser.ContextContext ctx);
+	@Override public void exitStringCompare(HelloParser.StringCompareContext ctx) { }
+
 	/**
-	 * Enter a parse tree produced by {@link HelloParser#booleanOperation}.
-	 * @param ctx the parse tree
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
 	 */
-	void enterBooleanOperation(@NotNull HelloParser.BooleanOperationContext ctx);
+	@Override public void enterEveryRule(ParserRuleContext ctx) { }
 	/**
-	 * Exit a parse tree produced by {@link HelloParser#booleanOperation}.
-	 * @param ctx the parse tree
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
 	 */
-	void exitBooleanOperation(@NotNull HelloParser.BooleanOperationContext ctx);
+	@Override public void exitEveryRule(ParserRuleContext ctx) { }
 	/**
-	 * Enter a parse tree produced by {@link HelloParser#operation}.
-	 * @param ctx the parse tree
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
 	 */
-	void enterOperation(@NotNull HelloParser.OperationContext ctx);
+	@Override public void visitTerminal(TerminalNode node) { }
 	/**
-	 * Exit a parse tree produced by {@link HelloParser#operation}.
-	 * @param ctx the parse tree
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
 	 */
-	void exitOperation(@NotNull HelloParser.OperationContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link HelloParser#jump}.
-	 * @param ctx the parse tree
-	 */
-	void enterJump(@NotNull HelloParser.JumpContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link HelloParser#jump}.
-	 * @param ctx the parse tree
-	 */
-	void exitJump(@NotNull HelloParser.JumpContext ctx);
+	@Override public void visitErrorNode(ErrorNode node) { }
 }
+
