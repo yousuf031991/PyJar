@@ -1,5 +1,4 @@
 
-
 /*
 Developed with a ton of help from The Definitive ANTLR 4 Reference.
 */
@@ -35,21 +34,21 @@ whileLoop : 'while ' '(' (IDENT | booleanOperation | integerCompare | stringComp
 /**Assignment*/
 assignment : intAssignment | strAssignment | boolAssignment ;
 
-intAssignment : ('integer ')* IDENT '=' (INT | intOperation | intCall)+ ;
+intAssignment : 'integer' ' ' IDENT '=' (INT | intOperation | intCall)+ ;
 
-strAssignment : ('string ')* IDENT '=' (STR | stringOperation)+ ;
+strAssignment : 'string' ' ' IDENT '=' (STR | stringOperation)+ ;
 
-boolAssignment : ('boolean ')* IDENT '=' (BOOL | booleanOperation | boolCall)+ ;
+boolAssignment : 'boolean' ' ' IDENT '=' (BOOL | booleanOperation | integerCompare | stringCompare | boolCall)+ ;
 
 
 /**Operations*/
 operation : intOperation | stringOperation | booleanOperation ;
 
-intOperation : IDENT INTOP IDENT ;
+intOperation : IDENT ' ' INTOP ' ' IDENT ;
 
-stringOperation : IDENT STROP IDENT ;
+stringOperation : IDENT ' ' STROP ' ' IDENT ;
 
-booleanOperation : IDENT BOOLOP IDENT ;
+booleanOperation : IDENT ' ' BOOLOP ' ' IDENT ;
 
 
 /**Comparison functions*/
@@ -57,7 +56,7 @@ compare : integerCompare | stringCompare ;
 
 integerCompare : IDENT INTCOMP IDENT ;
 
-stringCompare : IDENT STRCOMP IDENT ;
+stringCompare : IDENT ' ' STRCOMP ' ' IDENT ;
 
 /**Operators*/
 
@@ -81,20 +80,28 @@ STRCOMP : 'isequal' ;
 /**Types*/
 	
 //valid identifiers (letters of either case and numbers)
-IDENT : [ a-z]+ ;
+IDENT : [a-z]+ ;
 
 //integer
-INT : [ 0-9]+ ;
+INT : [0-9]+ ;
 
 //string
-STR : '"' [ a-zA-Z0-9]+ '"' ;
+STR : '"' [a-zA-Z0-9]+ '"' ;
 
 //boolean
 //BOOL : ['true' | 'false']* ;
 
 
-BOOL : [ TRUE | FALSE ] ;
+BOOL : 'TRUE' | 'FALSE' ;
 
+
+
+
+
+//TRUE : 'true' ;
+//FALSE : 'false' ;
+
+    
 /**Whitespace and comments - These are from chapter 5 of The Definitive ANTLR 4 Reference*/
 
 //whitespace
@@ -110,4 +117,3 @@ expressionList : expression (',' expression)* ; //an expression followed by zero
 
 COMMENT : '//' ~( '\r' | '\n' )* -> skip 
 ;
-

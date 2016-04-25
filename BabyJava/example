@@ -1,18 +1,54 @@
+//Factorial Program
 
-x=getInt()
-i=1
-fact=1
+integer x=getInt()
+integer i=1
+integer fact=1
 
 while (x>i){
-fact=fact*x
-x=x-i
+integer fact=fact * x
+integer x=x - i
 }
 
-if (x>i){
-x=6
+print(fact)
+
+
+// REFERENCE SYNTAX
+
+// If else condition
+if (x>r)
+{
+integer x=4
 }
 else
 {
-c=8
+integer y=3
 }
-print(fact)
+
+// While loop
+while (x<y)
+{
+integer x=3
+}
+
+// integer assignment
+integer c=4
+
+// string assignment
+string x="ew"
+
+// boolean assignment
+boolean x=x and c
+boolean x=x<c
+boolean x=x isequal y
+boolean x=TRUE
+
+// intoperation x - y
+
+// stroperation x concat y
+
+// booloperation x and y
+
+// integerCompare x>j
+
+// strCompare x isequal y
+
