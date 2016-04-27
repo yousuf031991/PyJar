@@ -1,0 +1,6 @@
+stack s1
+s1.push(3)
+s1.pop()
+s1.isEmpty()
+s1.push(hey)
+s1.push(True)

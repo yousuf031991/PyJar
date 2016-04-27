@@ -1,0 +1,8 @@
+// nested while loops
+while(x>5){
+	while(y>6){
+		while(z>4){
+			l=True
+		}
+	}
+}

@@ -1,0 +1,12 @@
+func names(a,b,c){}
+x = names(1,2,3)
+return names(1,2,3)
+return x
+return 12
+return True
+stack st
+st.push(3)
+st.push(asc)
+st.push(True)
+st.pop()
+st.isEmpty()

@@ -4,116 +4,133 @@ Developed with a ton of help from The Definitive ANTLR 4 Reference.
 */
 
 grammar Hello;
-	
+
 //start rule
 start : context ;
 
-context: (assignment | whileLoop | jump | call)+ ;
+context: (assignment | whileLoop | ifelse | voidcall | functionDeclaration | functionCall | stackDeclaration | stackOps | functionReturn)+ ;
 
 
 /**Calls*/
-call : voidcall | intCall | strCall | boolCall ;
 
-voidcall : 'print(' IDENT ')' ;
+voidcall : 'print' IDENT ;
 
-intCall : 'getInt()' ;
+readCall : 'read'; 
 
-strCall : 'getStr()' ;
+// function specs
 
-boolCall : 'getBool()' ;
+functionDeclaration :'func' IDENT '(' argumentsDefinition ')' '{' functionBody '}';
+    
+argumentsDefinition : (() |(IDENT) (',' IDENT)*);
 
+functionBody : (context)*;
 
-/**Jump*/
-jump : 'if ' '(' (booleanOperation | compare) ')' '{' context '}' 'else' '{' context '}';
+functionCall : IDENT '(' parametersDefinition ')';
 
+parametersDefinition : (() | dataType (',' dataType)*);
+
+dataType : (INT | BOOL | IDENT);
+
+functionReturn : 'return' (IDENT | INT | BOOL | functionCall);
+
+// stack specs
+
+stackDeclaration : 'stack' IDENT;
+
+stackOps : IDENT stackFuncs ;
+
+stackFuncs : (stackPush | stackPop | stackIsEmpty);
+
+stackPush : '.push' '(' dataType ')';
+
+stackPop : '.pop' '(' ')';
+
+stackIsEmpty : '.isEmpty' '(' ')';
+
+/**if else statement*/
+ifelse : (prefixIf prefixContext)(prefixElseIf prefixContext)* (prefixElse prefixContext)?;
+
+prefixIf : 'if' '(' (boolCompare | integerCompare) ')'  ;
+
+prefixElseIf : 'else if' '(' (boolCompare | integerCompare) ')' ;
+
+prefixElse : 'else' ;
+
+prefixContext : '{' context '}';
 
 /**Loop*/
-whileLoop : 'while ' '(' (IDENT | booleanOperation | integerCompare | stringCompare) ')' '{' context '}' ;
+whileLoop : whilePrefix '{' context '}' ;
+
+whilePrefix : 'while' '(' (boolCompare | integerCompare) ')';
 
 
 /**Assignment*/
-assignment : intAssignment | strAssignment | boolAssignment ;
+assignment : IDENT '=' (readCall | expression | boolExpression | functionCall | stackOps) ;
 
-intAssignment : 'integer' ' ' IDENT '=' (INT | intOperation | intCall)+ ;
+/** Integer expression */
 
-strAssignment : 'string' ' ' IDENT '=' (STR | stringOperation)+ ;
+expression : (term)(subExpression)* ;
 
-boolAssignment : 'boolean' ' ' IDENT '=' (BOOL | booleanOperation | integerCompare | stringCompare | boolCall)+ ;
+subExpression : ADDOP term ;
+
+term : (factor) (subTerm)*;
+
+subTerm : MULOP factor;
+
+factor : (IDENT | INT | '(' expression ')');
 
 
-/**Operations*/
-operation : intOperation | stringOperation | booleanOperation ;
+/** Boolean expression */
 
-intOperation : IDENT ' ' INTOP ' ' IDENT ;
+boolExpression : (boolTerm) (boolSubExpression)*;
 
-stringOperation : IDENT ' ' STROP ' ' IDENT ;
+boolSubExpression : BOOLOR boolTerm ;
 
-booleanOperation : IDENT ' ' BOOLOP ' ' IDENT ;
+boolTerm : (boolFactor) (subBoolTerm)*;
+
+subBoolTerm : BOOLAND boolFactor;
+
+boolFactor : (IDENT | BOOL | '(' boolExpression ')');
 
 
 /**Comparison functions*/
-compare : integerCompare | stringCompare ;
 
-integerCompare : IDENT INTCOMP IDENT ;
+integerCompare : expression INTCOMP expression ;
 
-stringCompare : IDENT ' ' STRCOMP ' ' IDENT ;
+boolCompare : boolExpression BOOLCOMP boolExpression;
 
 /**Operators*/
 
 //integer operators
-INTOP : '+' | '-' | '*' | '/' | '%' ; 
+MULOP : ('*' | '/' | '%');
 
-//string operators
-STROP : 'concat' ;
+ADDOP : ('+' | '-') ; 
 
-//boolean operators
-BOOLOP : 'and' | 'or' | 'xOr' ;
+INTCOMP : ('>' | '<' | '==' | '<=' | '>=');
 
-/**Comparators*/
+BOOLAND : 'and' ;
 
-//integer comparators
-INTCOMP : '>' | '<' | '==' ;
+BOOLOR : 'or' ;
 
-//string comparators
-STRCOMP : 'isequal' ;
+BOOLCOMP : 'is' ;
 
 /**Types*/
-	
-//valid identifiers (letters of either case and numbers)
-IDENT : [a-z]+ ;
+
+//boolean
+BOOL : ('True' | 'False') ;
 
 //integer
 INT : [0-9]+ ;
+	
+//valid identifiers (letters of either case and numbers)
+IDENT: ('a'..'z' | 'A'..'Z') ('a'..'z' | 'A'..'Z' | '0'..'9')*;
 
-//string
-STR : '"' [a-zA-Z0-9]+ '"' ;
-
-//boolean
-//BOOL : ['true' | 'false']* ;
-
-
-BOOL : 'TRUE' | 'FALSE' ;
-
-
-
-
-
-//TRUE : 'true' ;
-//FALSE : 'false' ;
-
-    
 /**Whitespace and comments - These are from chapter 5 of The Definitive ANTLR 4 Reference*/
 
 //whitespace
-WS : [ \t\r\n]+ -> skip ;
+WS: [ \t\r\n]+ -> skip;
 
 //comments
-/**Ignore this for now
-//statement sequence
-statements : (statement ';')* ; //just as in Java, a statement is terminated by a semicolon
-//expression list
-expressionList : expression (',' expression)* ; //an expression followed by zero or more expressions (like inside a for loop)
-*/
 
 COMMENT : '//' ~( '\r' | '\n' )* -> skip 
 ;

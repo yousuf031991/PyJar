@@ -1,6 +1,7 @@
-
-
 // Generated from Hello.g4 by ANTLR 4.5.3
+
+import java.util.ArrayList;
+import java.util.Stack;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;
@@ -11,21 +12,28 @@ import org.antlr.v4.runtime.tree.TerminalNode;
  * which can be extended to create a listener which only needs to handle a subset
  * of the available methods.
  */
-public class NewListener extends HelloBaseListener {
+public class NewListener implements HelloListener {
+	ArrayList<String> op = new ArrayList<String>();
+	Stack<Integer> whileStart = new Stack<Integer>();
+	Stack<Integer> whileCond = new Stack<Integer>();
+	
+	
+	int line_no = 1;
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStart(HelloParser.StartContext ctx) { }
+	@Override public void enterStart(HelloParser.StartContext ctx) {		
+		op.add("");
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStart(HelloParser.StartContext ctx) { 
-
-		System.out.println("END");
+	@Override public void exitStart(HelloParser.StartContext ctx) {
+		op.add("END");
 	}
 	/**
 	 * {@inheritDoc}
@@ -44,22 +52,11 @@ public class NewListener extends HelloBaseListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterCall(HelloParser.CallContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitCall(HelloParser.CallContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterVoidcall(HelloParser.VoidcallContext ctx) { 
-
-		System.out.println("PUSH " + ctx.IDENT());
-		System.out.println("PRINT");
+	@Override public void enterVoidcall(HelloParser.VoidcallContext ctx) {
+		line_no++;
+		op.add("PUSH " + ctx.IDENT());
+		line_no++;
+		op.add("PRINT");
 	}
 	/**
 	 * {@inheritDoc}
@@ -72,76 +69,303 @@ public class NewListener extends HelloBaseListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIntCall(HelloParser.IntCallContext ctx) {
-
-		System.out.println("READ INT");
+	@Override public void enterReadCall(HelloParser.ReadCallContext ctx) {
+		line_no++;		
+		op.add("READ");
 	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIntCall(HelloParser.IntCallContext ctx) { }
+	@Override public void exitReadCall(HelloParser.ReadCallContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStrCall(HelloParser.StrCallContext ctx) {
-
-		System.out.println("READ STRING");
-	}
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitStrCall(HelloParser.StrCallContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterBoolCall(HelloParser.BoolCallContext ctx) {
-
-		System.out.println("READ BOOLEAN");
-	}
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitBoolCall(HelloParser.BoolCallContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterJump(HelloParser.JumpContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitJump(HelloParser.JumpContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterWhileLoop(HelloParser.WhileLoopContext ctx) {
-		if (ctx.integerCompare() != null) 
-		{
-			System.out.println("PUSH " + ctx.integerCompare().IDENT(0));
-			System.out.println("PUSH " + ctx.integerCompare().IDENT(1));
-			switch (ctx.integerCompare().INTCOMP().toString()) 
-			{
-				case ">":
-					System.out.println("GREATER");
-					break;
+	@Override public void enterFunctionDeclaration(HelloParser.FunctionDeclarationContext ctx) {
+		line_no++; 
+		op.add("FUNC " + ctx.IDENT());
+		if(ctx.argumentsDefinition().IDENT()!=null){
+			for(Object m:ctx.argumentsDefinition().IDENT()){
+				line_no++;
+				op.add("STORE " + m);
 			}
 		}
-		System.out.println("testfgoto 22");
+	}
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunctionDeclaration(HelloParser.FunctionDeclarationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterArgumentsDefinition(HelloParser.ArgumentsDefinitionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitArgumentsDefinition(HelloParser.ArgumentsDefinitionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFunctionBody(HelloParser.FunctionBodyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunctionBody(HelloParser.FunctionBodyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFunctionCall(HelloParser.FunctionCallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunctionCall(HelloParser.FunctionCallContext ctx) {
+		line_no++;
+		op.add("CALL " + ctx.IDENT() );
+	}
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterParametersDefinition(HelloParser.ParametersDefinitionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitParametersDefinition(HelloParser.ParametersDefinitionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */	
+	@Override public void enterDataType(HelloParser.DataTypeContext ctx) { 
+		if(ctx.INT()!=null){
+			line_no++;
+			op.add("PUSH " + ctx.INT());
+		}else if(ctx.BOOL()!=null){
+			line_no++;
+			op.add("PUSH " + ctx.BOOL());
+		}else{
+			line_no++;
+			op.add("PUSH " + ctx.IDENT());
+		}
+	}
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDataType(HelloParser.DataTypeContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */	
+	@Override public void enterFunctionReturn(HelloParser.FunctionReturnContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunctionReturn(HelloParser.FunctionReturnContext ctx) {
+		if(ctx.IDENT() != null){
+			line_no++;
+			op.add("RET " + ctx.IDENT());
+		}else if(ctx.INT() != null){
+			line_no++;
+			op.add("RET " + ctx.INT());
+		}else if(ctx.BOOL() != null){
+			line_no++;
+			op.add("RET " + ctx.BOOL());
+		} else{
+			line_no++;
+			op.add("STORE tempVar");
+			line_no++;
+			op.add("RET tempVar");
+		}
+	}
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */	
+	@Override public void enterStackDeclaration(HelloParser.StackDeclarationContext ctx) {
+		line_no++;
+		op.add("STACK " +ctx.IDENT());
+	}
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStackDeclaration(HelloParser.StackDeclarationContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStackOps(HelloParser.StackOpsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStackOps(HelloParser.StackOpsContext ctx) {
+		if(ctx.stackFuncs().stackPop() != null ){
+			line_no++;
+			op.add("STACKPOP " + ctx.IDENT());
+		} else if(ctx.stackFuncs().stackPush() != null ){
+			line_no++;
+			op.add("STACKPUSH " + ctx.IDENT());
+		} else{
+			line_no++;
+			op.add("STACKISEMPTY " + ctx.IDENT());
+		}
+	}
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStackFuncs(HelloParser.StackFuncsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStackFuncs(HelloParser.StackFuncsContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStackPush(HelloParser.StackPushContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStackPush(HelloParser.StackPushContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStackPop(HelloParser.StackPopContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStackPop(HelloParser.StackPopContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterStackIsEmpty(HelloParser.StackIsEmptyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitStackIsEmpty(HelloParser.StackIsEmptyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterIfelse(HelloParser.IfelseContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitIfelse(HelloParser.IfelseContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPrefixIf(HelloParser.PrefixIfContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPrefixIf(HelloParser.PrefixIfContext ctx) {
+		line_no++;
+		op.add("TESTFGOTO");
+	}
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPrefixElseIf(HelloParser.PrefixElseIfContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPrefixElseIf(HelloParser.PrefixElseIfContext ctx) {		
+		op.add("TESTFGOTO");
+		line_no++;
+	}
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterPrefixElse(HelloParser.PrefixElseContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPrefixElse(HelloParser.PrefixElseContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */	
+	@Override public void enterPrefixContext(HelloParser.PrefixContextContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPrefixContext(HelloParser.PrefixContextContext ctx) {
+		line_no++;
+		op.add("PUSH True");
+		line_no++;
+		op.add("TESTTGOTO");
+	}
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */	
+	@Override public void enterWhileLoop(HelloParser.WhileLoopContext ctx) {
+		whileStart.push(line_no);
 	}
 	/**
 	 * {@inheritDoc}
@@ -149,18 +373,30 @@ public class NewListener extends HelloBaseListener {
 	 * <p>The default implementation does nothing.</p>
 	 */
 	@Override public void exitWhileLoop(HelloParser.WhileLoopContext ctx) {
-		if (ctx.integerCompare() != null) 
-		{
-			System.out.println("push " + ctx.integerCompare().IDENT(0));
-			System.out.println("push " + ctx.integerCompare().IDENT(1));
-			switch (ctx.integerCompare().INTCOMP().toString()) 
-			{
-				case ">":
-					System.out.println("greater");
-					break;
-			}
-		}
-		System.out.println("testtgoto 10");
+		line_no++;
+		op.add("PUSH True");		
+		op.add("TESTTGOTO " + whileStart.pop());
+		Integer pos = whileCond.pop();
+		String prev = op.get(pos);
+		prev += " " + (line_no + 1);
+		op.set(pos, prev);
+		line_no++;
+	}
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterWhilePrefix(HelloParser.WhilePrefixContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitWhilePrefix(HelloParser.WhilePrefixContext ctx) {		
+		whileCond.push(line_no);
+		op.add("TESTFGOTO");
+		line_no++;
 	}
 	/**
 	 * {@inheritDoc}
@@ -173,174 +409,248 @@ public class NewListener extends HelloBaseListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitAssignment(HelloParser.AssignmentContext ctx) { }
+	@Override public void exitAssignment(HelloParser.AssignmentContext ctx) {
+		line_no++;
+		op.add("STORE " + ctx.IDENT());
+	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterIntAssignment(HelloParser.IntAssignmentContext ctx) {
-
-		if (ctx.INT() != null) {
-			System.out.println("PUSH " + ctx.INT());
+	@Override public void enterExpression(HelloParser.ExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitExpression(HelloParser.ExpressionContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+    @Override public void enterSubExpression(HelloParser.SubExpressionContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    public String checkAddOp(HelloParser.SubExpressionContext ctx){
+		String a="";
+		switch(ctx.ADDOP().toString()){
+			case "+":
+				a = "ADD";
+				break;
+			case "-":
+				a = "SUBTRACT";
+				break;						
 		}
+		return a;
 	}
+    @Override public void exitSubExpression(HelloParser.SubExpressionContext ctx) {
+    	line_no++;
+    	op.add(checkAddOp(ctx));
+    }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */	
+	@Override public void enterTerm(HelloParser.TermContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIntAssignment(HelloParser.IntAssignmentContext ctx) {
-
-		System.out.println("STORE " + ctx.IDENT());
-	}
+	@Override public void exitTerm(HelloParser.TermContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterStrAssignment(HelloParser.StrAssignmentContext ctx) { 
-
-		if (ctx.STR() != null) {
-			System.out.println("PUSH " + ctx.STR());
+	@Override public void enterSubTerm(HelloParser.SubTermContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	public String checkMulOp(HelloParser.SubTermContext ctx){
+		String a="";
+		switch(ctx.MULOP().toString()){
+			case "*":
+				a = "MULTIPLY";
+				break;
+			case "/":
+				a = "DIVIDE";
+				break;
+			case "%":
+				a = "MODULUS";
+				break;
+			
 		}
+		return a;
+	}
+	
+	@Override public void exitSubTerm(HelloParser.SubTermContext ctx) {
+		line_no++;
+		op.add(checkMulOp(ctx));
 	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitStrAssignment(HelloParser.StrAssignmentContext ctx) {
-
-		System.out.println("STORE " + ctx.IDENT());
+	@Override public void enterFactor(HelloParser.FactorContext ctx) {
+		if(ctx.IDENT()!=null){
+			line_no++;
+			op.add("PUSH "+ctx.IDENT());
+		} else if(ctx.INT()!=null){
+			line_no++;
+			op.add("PUSH "+ctx.INT());
+		}		
 	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterBoolAssignment(HelloParser.BoolAssignmentContext ctx) { 
-		if (ctx.BOOL() != null) {
-			System.out.println("PUSH " + ctx.BOOL());
-		}
-	}
+	@Override public void exitFactor(HelloParser.FactorContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitBoolAssignment(HelloParser.BoolAssignmentContext ctx) { 
-
-		System.out.println("STORE " + ctx.IDENT());
-	}
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterOperation(HelloParser.OperationContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitOperation(HelloParser.OperationContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterIntOperation(HelloParser.IntOperationContext ctx) { 
-
-		System.out.println("PUSH " + ctx.IDENT(0));
-		System.out.println("PUSH " + ctx.IDENT(1));
-	}
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitIntOperation(HelloParser.IntOperationContext ctx) {
-		switch (ctx.INTOP().toString()) {
-		case "*":
-			System.out.println("MULTIPLY");
-			break;
-		case "-":
-			System.out.println("MINUS");
-			break;
-		case "+":
-			System.out.println("ADD");
-			break;
-		default:
-			System.out.println("NO SUCH OPERATOR " + ctx.INTOP());
-	}
-	}
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterStringOperation(HelloParser.StringOperationContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitStringOperation(HelloParser.StringOperationContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterBooleanOperation(HelloParser.BooleanOperationContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitBooleanOperation(HelloParser.BooleanOperationContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterCompare(HelloParser.CompareContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitCompare(HelloParser.CompareContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
+    @Override public void enterBoolExpression(HelloParser.BoolExpressionContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void exitBoolExpression(HelloParser.BoolExpressionContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void enterBoolSubExpression(HelloParser.BoolSubExpressionContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void exitBoolSubExpression(HelloParser.BoolSubExpressionContext ctx) {
+    	if(ctx.BOOLOR() != null){
+    		line_no++;
+    		op.add("OR");
+    	}
+    }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void enterBoolTerm(HelloParser.BoolTermContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void exitBoolTerm(HelloParser.BoolTermContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void enterSubBoolTerm(HelloParser.SubBoolTermContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void exitSubBoolTerm(HelloParser.SubBoolTermContext ctx) {
+    	if(ctx.BOOLAND() != null){
+    		line_no++;
+    		op.add("AND");
+    	}
+    }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void enterBoolFactor(HelloParser.BoolFactorContext ctx) {
+    	if(ctx.IDENT() != null){
+			line_no++;
+			op.add("PUSH " + ctx.IDENT());
+		} else if(ctx.BOOL() != null){
+			line_no++;
+			op.add("PUSH " + ctx.BOOL());
+		}	
+    }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void exitBoolFactor(HelloParser.BoolFactorContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */	
 	@Override public void enterIntegerCompare(HelloParser.IntegerCompareContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIntegerCompare(HelloParser.IntegerCompareContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterStringCompare(HelloParser.StringCompareContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitStringCompare(HelloParser.StringCompareContext ctx) { }
+	@Override public void exitIntegerCompare(HelloParser.IntegerCompareContext ctx) {
+		switch(ctx.INTCOMP().toString()){
+			case ">":
+				line_no++;
+				op.add("GREATER");
+				break;
+			case "<":
+				line_no++;
+				op.add("LESSER");
+				break;
+			case ">=":
+				line_no++;
+				op.add("GREATEREQUAL");
+				break;
+			case "<=":
+				line_no++;
+				op.add("LESSEREQUAL");
+				break;
+			case "==":
+				line_no++;
+				op.add("EQUALS");
+				break;	
+		}
+	}
 
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+    @Override public void enterBoolCompare(HelloParser.BoolCompareContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void exitBoolCompare(HelloParser.BoolCompareContext ctx) {
+    	line_no++;
+    	op.add("EQUALS");
+    }
+ 
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
 	@Override public void enterEveryRule(ParserRuleContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -361,4 +671,3 @@ public class NewListener extends HelloBaseListener {
 	 */
 	@Override public void visitErrorNode(ErrorNode node) { }
 }
-

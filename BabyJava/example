@@ -1,54 +1,42 @@
-//Factorial Program
+x = read
+x = 5
+x = True
+x = False
+x=x*y*4+(2/3)
+x=x and y and z
+if(x is y and False){
 
-integer x=getInt()
-integer i=1
-integer fact=1
-
-while (x>i){
-integer fact=fact * x
-integer x=x - i
+	x=1
 }
-
-print(fact)
-
-
-// REFERENCE SYNTAX
-
-// If else condition
-if (x>r)
-{
-integer x=4
+else{
+	x=2
 }
-else
-{
-integer y=3
+//factorial start
+x=read
+i = x
+fact = 1
+while (i > 1){
+   fact = fact * i
+   i = i - 1
 }
-
-// While loop
-while (x<y)
-{
-integer x=3
+print fact
+//factorial end
+//function start
+func fname(x,y,z){
+	x=read
+	i = x
+	fact = 1
 }
-
-// integer assignment
-integer c=4
-
-// string assignment
-string x="ew"
-
-// boolean assignment
-boolean x=x and c
-boolean x=x<c
-boolean x=x isequal y
-boolean x=TRUE
-
-// intoperation x - y
-
-// stroperation x concat y
-
-// booloperation x and y
-
-// integerCompare x>j
-
-// strCompare x isequal y
-
+x=fname(x)
+x=fname(x,y,z)
+x=fname()
+fname()
+//function end
+//stack start
+stack s1
+s1.push(3)
+s1.pop()
+s1.isEmpty()
+s1.push(hey)
+s1.push(True)
+//stack end

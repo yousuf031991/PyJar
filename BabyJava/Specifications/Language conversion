@@ -1,26 +1,55 @@
 #### High level language to intermediate language conversion
-read x 					-->			READ
+x = read 				-->			READ
 									STORE x
 i = x					-->			PUSH x
 									STORE i
-fact = 1				-->			PUSH   1.0
+fact = 1				-->			PUSH   1
 									STORE fact
 while (i > 1){			-->			PUSH i
-									PUSH   1.0
+									PUSH   1
 									GREATER
-									TESTFGOTO 20
-									OPENBLOCK
+									TESTFGOTO 20									
    fact = fact * i		-->			PUSH fact
 									PUSH i
 									MULTIPLY
 									STORE fact									
    i = i - 1			-->			PUSH i
-									PUSH   1.0
+									PUSH   1
 									SUBTRACT
 									STORE i
 }						-->			PUSH True
-									TESTTGOTO 6
-									CLOSEBLOCK
+									TESTTGOTO 6									
 print fact				-->			PUSH fact
 									PRINT
 									END
+
+#### For functions
+func fname(a,b,c){		-->			FUNC fname
+									STORE a
+									STORE b
+									STORE c
+	return x;			-->			RET x
+	return fname(3,4,5)	-->			PUSH 3
+									PUSH 4
+									PUSH 5
+									CALL fname					
+									STORE tempVar
+									RET tempVar
+									
+}						-->			ENDFUNC
+
+x = fname(1,2,3)		-->			PUSH 1
+									PUSH 2
+									PUSH 3
+									CALL fname
+									STORE x
+									
+#### For stack
+stack st				-->			STACK st
+
+st.push(3)				-->			PUSH 3
+									STACKPUSH st
+									
+st.pop()				-->			STACKPOP st
+
+st.isEmpty()			-->			STACKISEMPTY st									

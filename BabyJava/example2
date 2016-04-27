@@ -1,0 +1,5 @@
+func fname(){
+	x=read
+	i = x
+	fact = 1
+}

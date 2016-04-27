@@ -1,0 +1,8 @@
+//factorial
+x=read
+i = x
+fact = 1
+while (i > 1){
+   fact = fact * i
+   i = i - 1
+}
