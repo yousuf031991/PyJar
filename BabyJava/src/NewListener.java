@@ -16,6 +16,9 @@ public class NewListener implements HelloListener {
 	ArrayList<String> op = new ArrayList<String>();
 	Stack<Integer> whileStart = new Stack<Integer>();
 	Stack<Integer> whileCond = new Stack<Integer>();
+	Stack<Integer> ifElseCount = new Stack<Integer>();
+	Stack<Integer> ifElseEnd = new Stack<Integer>();
+	Stack<Integer> ifElseCond = new Stack<Integer>();
 	
 	
 	int line_no = 1;
@@ -299,27 +302,85 @@ public class NewListener implements HelloListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitIfelse(HelloParser.IfelseContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void enterPrefixIf(HelloParser.PrefixIfContext ctx) { }
-	/**
-	 * {@inheritDoc}
-	 *
-	 * <p>The default implementation does nothing.</p>
-	 */
-	@Override public void exitPrefixIf(HelloParser.PrefixIfContext ctx) {
-		line_no++;
-		op.add("TESTFGOTO");
+	@Override public void exitIfelse(HelloParser.IfelseContext ctx) {
+		Integer count = ifElseCount.pop();
+		for(int i=0;i<count;i++){
+			Integer pos = ifElseEnd.pop();
+			String prev = op.get(pos);
+			prev += " " + (line_no);
+			op.set(pos, prev);			
+		}
 	}
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+    @Override public void enterIfStatement(HelloParser.IfStatementContext ctx) {
+    	ifElseCount.push(1);
+    }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void exitIfStatement(HelloParser.IfStatementContext ctx) {
+    	line_no++;
+		op.add("PUSH True");		
+		op.add("TESTTGOTO");
+		ifElseEnd.add(line_no);		
+		Integer pos = ifElseCond.pop();
+		String prev = op.get(pos);
+		prev += " " + (line_no + 1);
+		op.set(pos, prev);
+		line_no++;
+    }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */	
+	@Override public void enterPrefixIf(HelloParser.PrefixIfContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitPrefixIf(HelloParser.PrefixIfContext ctx) {		
+		op.add("TESTFGOTO");
+		ifElseCond.push(line_no);		
+		line_no++;
+	}
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+    @Override public void enterElseIfStatement(HelloParser.ElseIfStatementContext ctx) {
+    	Integer cur = ifElseCount.pop();
+    	ifElseCount.push(1 + cur);
+    }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void exitElseIfStatement(HelloParser.ElseIfStatementContext ctx) {
+    	line_no++;
+		op.add("PUSH True");		
+		ifElseEnd.add(line_no);
+		op.add("TESTTGOTO");
+		Integer pos = ifElseCond.pop();
+		String prev = op.get(pos);
+		prev += " " + (line_no + 1);
+		op.set(pos, prev);
+		line_no++;
+    }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */	
 	@Override public void enterPrefixElseIf(HelloParser.PrefixElseIfContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -328,6 +389,7 @@ public class NewListener implements HelloListener {
 	 */
 	@Override public void exitPrefixElseIf(HelloParser.PrefixElseIfContext ctx) {		
 		op.add("TESTFGOTO");
+		ifElseCond.push(line_no);
 		line_no++;
 	}
 	/**
@@ -335,6 +397,20 @@ public class NewListener implements HelloListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
+    @Override public void enterElseStatement(HelloParser.ElseStatementContext ctx) {
+    	
+    }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */
+    @Override public void exitElseStatement(HelloParser.ElseStatementContext ctx) { }
+    /**
+     * {@inheritDoc}
+     *
+     * <p>The default implementation does nothing.</p>
+     */	
 	@Override public void enterPrefixElse(HelloParser.PrefixElseContext ctx) { }
 	/**
 	 * {@inheritDoc}
@@ -353,12 +429,7 @@ public class NewListener implements HelloListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitPrefixContext(HelloParser.PrefixContextContext ctx) {
-		line_no++;
-		op.add("PUSH True");
-		line_no++;
-		op.add("TESTTGOTO");
-	}
+	@Override public void exitPrefixContext(HelloParser.PrefixContextContext ctx) {	}
 	/**
 	 * {@inheritDoc}
 	 *

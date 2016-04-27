@@ -8,7 +8,7 @@ grammar Hello;
 //start rule
 start : context ;
 
-context: (assignment | whileLoop | ifelse | voidcall | functionDeclaration | functionCall | stackDeclaration | stackOps | functionReturn)+ ;
+context: (assignment | whileLoop | ifelse | voidcall | functionDeclaration | functionCall | stackDeclaration | stackOps | functionReturn)* ;
 
 
 /**Calls*/
@@ -23,7 +23,7 @@ functionDeclaration :'func' IDENT '(' argumentsDefinition ')' '{' functionBody '
     
 argumentsDefinition : (() |(IDENT) (',' IDENT)*);
 
-functionBody : (context)*;
+functionBody : context;
 
 functionCall : IDENT '(' parametersDefinition ')';
 
@@ -48,11 +48,17 @@ stackPop : '.pop' '(' ')';
 stackIsEmpty : '.isEmpty' '(' ')';
 
 /**if else statement*/
-ifelse : (prefixIf prefixContext)(prefixElseIf prefixContext)* (prefixElse prefixContext)?;
+ifelse : (ifStatement)(elseIfStatement)* (elseStatement)?;
+
+ifStatement : prefixIf prefixContext;
 
 prefixIf : 'if' '(' (boolCompare | integerCompare) ')'  ;
 
+elseIfStatement : prefixElseIf prefixContext;
+
 prefixElseIf : 'else if' '(' (boolCompare | integerCompare) ')' ;
+
+elseStatement : prefixElse prefixContext;
 
 prefixElse : 'else' ;
 
