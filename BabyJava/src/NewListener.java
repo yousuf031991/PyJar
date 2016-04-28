@@ -55,18 +55,16 @@ public class NewListener implements HelloListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterVoidcall(HelloParser.VoidcallContext ctx) {
-		line_no++;
-		op.add("PUSH " + ctx.IDENT());
-		line_no++;
-		op.add("PRINT");
-	}
+	@Override public void enterVoidcall(HelloParser.VoidcallContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitVoidcall(HelloParser.VoidcallContext ctx) { }
+	@Override public void exitVoidcall(HelloParser.VoidcallContext ctx) {
+		line_no++;
+		op.add("PRINT");
+	}
 	/**
 	 * {@inheritDoc}
 	 *

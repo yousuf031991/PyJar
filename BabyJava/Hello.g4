@@ -13,7 +13,7 @@ context: (assignment | whileLoop | ifelse | voidcall | functionDeclaration | fun
 
 /**Calls*/
 
-voidcall : 'print' IDENT ;
+voidcall : 'print' dataType;
 
 readCall : 'read'; 
 

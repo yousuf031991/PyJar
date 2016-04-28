@@ -4,7 +4,7 @@
 # ## Basic mockup for a factorial program
 
 # ##### High level code
-# ```read x
+# ```x = read
 # i = x
 # fact = 1
 # while (i > 1){
@@ -12,7 +12,6 @@
 #    i = i - 1
 # }
 # print fact
-# end
 # ```
 
 # ##### Low level code
@@ -21,10 +20,10 @@
 # store x
 # push x
 # store i
-# push   1.0
+# push   1
 # store fact
 # push i
-# push   1.0
+# push   1
 # greater
 # testfgoto 20
 # push fact
@@ -32,7 +31,7 @@
 # multiply
 # store fact
 # push i
-# push   1.0
+# push   1
 # minus
 # store i
 # push True
@@ -54,7 +53,7 @@
 # * **NOP** - do nothing
 # 
 
-# In[207]:
+# In[17]:
 
 class Runtime:
     def __init__(self, isfunc = False):
@@ -78,7 +77,7 @@ class Interpreter:
                 print '{}   {}'.format(i, ele)
                 i += 1
     
-    def step(self):
+    def step(self):        
         line = self.program[self.ip]
         self.ip += 1
         tokens = line.split()
@@ -208,7 +207,9 @@ class Interpreter:
     def GREATEREQUAL(self, args):
         par1 = self.run_stack[0].sym_table.pop()
         par2 = self.run_stack[0].sym_table.pop()
-        self.run_stack[0].sym_table.append(par2 >= par1)
+        op1 = self.find_in_dict(par1)
+        op2 = self.find_in_dict(par2)
+        self.run_stack[0].sym_table.append(op2 >= op1)
         
     def LESSEREQUAL(self, args):
         par1 = self.run_stack[0].sym_table.pop()
@@ -216,6 +217,13 @@ class Interpreter:
         op1 = self.find_in_dict(par1)
         op2 = self.find_in_dict(par2)
         self.run_stack[0].sym_table.append(op2 <= op1)
+        
+    def EQUALS(self, args):
+        par1 = self.run_stack[0].sym_table.pop()
+        par2 = self.run_stack[0].sym_table.pop()
+        op1 = self.find_in_dict(par1)
+        op2 = self.find_in_dict(par2)
+        self.run_stack[0].sym_table.append(op2 == op1)
     
     def TESTTGOTO(self, args):
         par = self.run_stack[0].sym_table.pop()
@@ -231,13 +239,23 @@ class Interpreter:
         
     def END(self, args):
         pass
+    
+    def START(self, args):
+        pass
 
 
-# In[212]:
+# In[20]:
 
 test_file = open(raw_input(), "r")
 testing = test_file.read()
 lines = testing.split('\n')
+lines.insert(0, "START")
+del lines[-1]
 intp = Interpreter(lines)
 intp.RUN()
+
+
+# In[ ]:
+
+
 
