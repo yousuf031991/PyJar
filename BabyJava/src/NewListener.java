@@ -88,7 +88,7 @@ public class NewListener implements HelloListener {
 	@Override public void enterFunctionDeclaration(HelloParser.FunctionDeclarationContext ctx) {
 		line_no++; 
 		op.add("FUNC " + ctx.IDENT());
-		if(ctx.argumentsDefinition().IDENT()!=null){
+		if(ctx.argumentsDefinition().IDENT() != null){
 			for(Object m:ctx.argumentsDefinition().IDENT()){
 				line_no++;
 				op.add("STORE " + m);
@@ -100,7 +100,10 @@ public class NewListener implements HelloListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFunctionDeclaration(HelloParser.FunctionDeclarationContext ctx) { }
+	@Override public void exitFunctionDeclaration(HelloParser.FunctionDeclarationContext ctx) {
+		line_no++;
+		op.add("ENDFUNC");
+	}
 	/**
 	 * {@inheritDoc}
 	 *

@@ -13,7 +13,7 @@ context: (assignment | whileLoop | ifelse | voidcall | functionDeclaration | fun
 
 /**Calls*/
 
-voidcall : 'print' dataType;
+voidcall : 'print' (dataType | functionCall | stackOps);
 
 readCall : 'read'; 
 
@@ -27,7 +27,7 @@ functionBody : context;
 
 functionCall : IDENT '(' parametersDefinition ')';
 
-parametersDefinition : (() | dataType (',' dataType)*);
+parametersDefinition : (() | dataType | boolExpression | expression (',' (dataType | boolExpression | expression ))*);
 
 dataType : (INT | BOOL | IDENT);
 
@@ -41,7 +41,7 @@ stackOps : IDENT stackFuncs ;
 
 stackFuncs : (stackPush | stackPop | stackIsEmpty);
 
-stackPush : '.push' '(' dataType ')';
+stackPush : '.push' '(' (dataType | boolExpression | expression) ')';
 
 stackPop : '.pop' '(' ')';
 

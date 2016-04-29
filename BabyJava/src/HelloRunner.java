@@ -33,7 +33,7 @@ public class HelloRunner {
 		walker.walk(extractor, tree); // initiate walk of tree with listener
 		// print the output in the file output.bjav
 		try {
-			PrintWriter writer = new PrintWriter("output.bjav", "UTF-8");
+			PrintWriter writer = new PrintWriter("intermediate.pyj", "UTF-8");
 			for (int i = 1; i < extractor.op.size(); i++) {
 				writer.println(extractor.op.get(i));
 			}

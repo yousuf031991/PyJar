@@ -1,5 +1,14 @@
-func fname(){
-	x=read
-	i = x
-	fact = 1
+//Stack stuff
+stack s1
+s1.push(3)
+s1.push(4)
+s1.push(5)
+s1.push(True)
+a=s1.pop()
+print a
+print s1.pop()
+cond = s1.isEmpty()
+while(cond is False){
+	print s1.pop()
+	cond = s1.isEmpty()
 }
