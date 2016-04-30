@@ -1,4 +1,4 @@
-## PyJar - A basic dynamically typed programming language
+## PyJ∀r - A basic dynamically typed programming language
 A rudimentary language created for the SER 502 class project which borrows from Python and Java.<br>
 Developed with [AntlrV4.5.3](http://www.antlr.org/).<br>
 Video tutorial on [this youtube link](https://youtu.be/hPxGfpWTmIg).<br>
