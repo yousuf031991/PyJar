@@ -3,6 +3,7 @@ A rudimentary language created for the SER 502 class project which borrows from 
 Developed with [AntlrV4.5.3](http://www.antlr.org/).<br>
 Video tutorial on [this youtube link](https://youtu.be/hPxGfpWTmIg).<br>
 Documentation [here](BabyJava/PyJar - Documentation.pdf).<br>
+Grammar [here](BabyJava/Hello.g4).
 
 ### Basic characterstics:
 * Bytecode generated as per a stack machine model.
