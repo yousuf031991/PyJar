@@ -13,7 +13,7 @@ Grammar [here](BabyJava/Hello.g4).
 * Functions, recursion, nested loops in the form of if-else and while loops supported.
 
 ### Installation
-* Download the PyJar Language.zip file from this git repository
+* Download the [PyJar Language.zip](BabyJava/PyJar language.zip) file.
 * Create a new .txt file and write a program in PyJar (lets call it pgm.txt).
 * Extract the file and go to the command line interface
 * Run: _java -jar PyJar.jar pgm.txt_
