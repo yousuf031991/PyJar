@@ -24,3 +24,23 @@ Grammar [here](BabyJava/Hello.g4).
 * You’ll be prompted to enter a file name: Type _intermediate.pyj_<br>
 The output of your program should be on the screen right about now.
 
+### Example program for nth fibonacci number
+```python
+func fibo(n){
+ if(n == 1){
+  return 0
+ } else if(n == 2){
+  return 1
+ }
+ f1 = fibo(n - 1)
+ f2 = fibo(n - 2)
+ fsum = f1 + f2
+ return fsum
+}
+x = read
+print fibo(x)
+```
+#### Note:
+* Functions need to be defined before they are called
+* Only one arithmetic expression/function call allowed per statement eg. `return fibo(n - 1) + fibo(n - 2)` not permitted
+* No indentation required like in Python
